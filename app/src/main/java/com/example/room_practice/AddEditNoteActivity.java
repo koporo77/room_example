@@ -12,8 +12,9 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
-public class AddNoteActivity extends AppCompatActivity {
-
+public class AddEditNoteActivity extends AppCompatActivity {
+    public static final String EXTRA_ID =
+            "com.example.room_practice.EXTRA_ID";
     public static final String EXTRA_TITLE =
             "com.example.room_practice.EXTRA_TITLE";
     public static final String EXTRA_DESCRIPTION =
@@ -38,7 +39,20 @@ public class AddNoteActivity extends AppCompatActivity {
         numberPickerPriority.setMaxValue(10);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_cancel);
-        setTitle("Add Note");
+
+        //now this intent have all needed data from mainActivity
+        //getIntent() is for sending data to new activity/ if we want to get data from mainActivity then we use getIntent() in here to retrieve data by using getExtra() method
+        Intent intent = getIntent();
+
+        //if intent have id then it is for edit data, if not it's for add data
+        if (intent.hasExtra(EXTRA_ID)) {
+            setTitle("Edit Note");
+            editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
+            editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
+            numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
+        } else {
+            setTitle("Add Note");
+        }
     }
 
     private void saveNote() {
@@ -56,6 +70,14 @@ public class AddNoteActivity extends AppCompatActivity {
         data.putExtra(EXTRA_TITLE, title);
         data.putExtra(EXTRA_DESCRIPTION, description);
         data.putExtra(EXTRA_PRIORITY, priority);
+
+        //when id is null, it return defaultValue -1
+        //when adding data to ui, it will return -1 cuz didn't pass id but when editing it will pass EXTRA_ID cuz it passed EXTRA_ID
+        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        if (id != -1) {
+            data.putExtra(EXTRA_ID, id);
+        }
+
         setResult(RESULT_OK, data);
         finish();
     }
