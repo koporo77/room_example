@@ -39,7 +39,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
     }
     @Override
     public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
+        //???
         Note currentNote = notes.get(position);
+        //???
         holder.textViewTitle.setText(currentNote.getTitle());
         holder.textViewDescription.setText(currentNote.getDescription());
         holder.textViewPriority.setText(String.valueOf(currentNote.getPriority()));
@@ -54,6 +56,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
         this.notes = notes;
         //tell recyclerview to configure item
         notifyDataSetChanged();
+    }
+
+    public Note getNoteAt(int position) {
+        return notes.get(position);
     }
 
 }

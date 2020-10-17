@@ -59,7 +59,7 @@ public abstract class NoteDatabase extends RoomDatabase {
     //onOpen -> generate when everytime app is openned(= when app opens database gets called)
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
-        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
 
             NoteDao dao = instance.noteDao();
