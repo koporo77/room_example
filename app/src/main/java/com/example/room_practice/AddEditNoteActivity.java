@@ -71,6 +71,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
         data.putExtra(EXTRA_DESCRIPTION, description);
         data.putExtra(EXTRA_PRIORITY, priority);
 
+        //under code is generating only editing situation
         //when id is null, it return defaultValue -1
         //when adding data to ui, it will return -1 cuz didn't pass id but when editing it will pass EXTRA_ID cuz it passed EXTRA_ID
         int id = getIntent().getIntExtra(EXTRA_ID, -1);

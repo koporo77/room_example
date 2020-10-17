@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+//insert and show
 public class MainActivity extends AppCompatActivity {
 
     public static final int ADD_NOTE_REQUEST = 1;
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //adding
         if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
             String title = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
             String description = data.getStringExtra(AddEditNoteActivity.EXTRA_DESCRIPTION);
@@ -117,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             noteViewModel.insert(note);
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
 
+            //editing
         } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
 
             //id should not be -1, but in case it happens, we handle this

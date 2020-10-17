@@ -24,7 +24,8 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
 //    private List<Note> notes = new ArrayList<>(); // we gonna pass List<Note> to super class so we don't need to
     // hold this method directly here
 
-    //we gonna directly pass (DIFF_CALLBACK) in here NoteAdapter class
+    //we gonna directly pass (DIFF_CALLBACK) in here NoteAdapter class/ this method is for implementing all necessary code for
+    //generating ListAdapter which comparing list and update
     public NoteAdapter() {
         super(DIFF_CALLBACK);
     }
@@ -45,32 +46,6 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
 
         }
     };
-
-    ///???
-    class NoteHolder extends RecyclerView.ViewHolder {
-        private TextView textViewTitle;
-        private TextView textViewDescription;
-        private TextView textViewPriority;
-
-        public NoteHolder(View itemView) {
-            super(itemView);
-            textViewTitle = itemView.findViewById(R.id.text_view_title);
-            textViewDescription = itemView.findViewById(R.id.text_view_description);
-            textViewPriority = itemView.findViewById(R.id.text_view_priority);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    //when swiping animation, it became no position
-                    if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(getItem(position));
-                    }
-                }
-            });
-        }
-
-    }
 
     //inflate layout and provide it to NoteHolder so that it can reference views
     @NonNull
@@ -108,10 +83,41 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
         return getItem(position);
     }
 
+    ///???
+    class NoteHolder extends RecyclerView.ViewHolder {
+        private TextView textViewTitle;
+        private TextView textViewDescription;
+        private TextView textViewPriority;
+
+        public NoteHolder(View itemView) {
+            super(itemView);
+            textViewTitle = itemView.findViewById(R.id.text_view_title);
+            textViewDescription = itemView.findViewById(R.id.text_view_description);
+            textViewPriority = itemView.findViewById(R.id.text_view_priority);
+
+            //this code enable to click item
+            //if we click ui, it return position
+            //listener가 어떻게 null이 되는지??
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    //when swiping animation, it became no position
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(getItem(position));
+                    }
+                }
+            });
+        }
+
+    }
+
+    //리스너가 대체 어떤건지????
     //this interface is for getting into setOnItemClickListener
     public interface OnItemClickListener {
         void onItemClick(Note note);
     }
+    //this code is used to editing
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
