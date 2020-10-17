@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Note> notes) {
                 //setNotes()를 통해 notes가 전달되면 setNotes의 notify 메소드에 의해 어뎁터가 업데이트됨(=ui업데이트됨)
-                adapter.setNotes(notes);
+                //adapter.setNotes(notes); -> adapter.submitList(notes); this is cuz we use ListAdapter
+                adapter.submitList(notes);
             }
         });
 
@@ -143,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //option inflating
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
