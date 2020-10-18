@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //startActivityForResult-1
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note);
@@ -85,8 +87,12 @@ public class MainActivity extends AppCompatActivity {
 
         //this callback method is for editing ui
         //????????????//how onItemClick can work, where is the entry point to start this?
+        // a) this is generating when added item is clicked
         //????????????// what is purpose of id?
         //i think we pass id only when i want to update data
+
+        // A) this is just setting listener interface and pass this to adapter by setOnItemCLickListener()
+        // it will generate in adapter's 103 line when view is clicked
         adapter.setOnItemClickListener(new NoteAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Note note) {
@@ -100,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     //onActivityResult-1
     @Override

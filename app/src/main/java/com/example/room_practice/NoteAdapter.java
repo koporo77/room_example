@@ -112,17 +112,25 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
 
     }
 
+    // 103번줄에서 화면 터치될때 호출이됨
     //리스너가 대체 어떤건지????
     //this interface is for getting into setOnItemClickListener
+    //when it is called, it hold note info in onItemClick
     public interface OnItemClickListener {
         void onItemClick(Note note);
     }
     //this code is used to editing
+    //외부에서 리스너 인터페이스를 메소드(익명클래스 객체)를 만들면(=몸통이 생김)
+    //그걸 어뎁터에 전달해 어뎁터의 listener 변수를 업데이트함
+    //그리고 onClick 이될때 listener 변수가 null 이 아니라면 listener 인터페이스의
+    //구현 부분인 onItemClick이 실행됨 이때 실행되는 리스너 변수는 몸통이 있으므로(메인 클래스에서 정의한 리스너 객체=익명클래스 객체)
+    //메인에서 구현된 리스너 객체(= 익명클래스 객체)가 실행됨
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 }
-
+//커스텀 이벤트 리스너
+//1. EventListener 를 인터페이스로 정의, 2. 이 인터페이스의 함수 설정 3.외부에서 사용가능하도록 setOnitemclickListener() 구현
 //in setNotes(), notifyDataSetChanged() this method tell adapter to change whole data because current data is invalid
 // so it is quite unnecessary. so adapter gonna use ListAdapter which uses diffUtil that comparing data on the list
 // and find one that is changed to update. / this way is more efficient
